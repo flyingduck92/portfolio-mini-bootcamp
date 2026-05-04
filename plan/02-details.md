@@ -16,3 +16,13 @@
 - **Styling:** Tailwind CSS (Custom config for soft shadows and pastel variables).
 - **Animation:** GSAP (ScrollTrigger, Flip, and CustomEase).
 - **Icons:** Lucide-icons (rounded variants).
+
+## Checklist
+
+```
+[✅] R — Role jelas?
+[✅] T — Task konkret?
+[✅] C — Context mencakup tech stack?
+[✅] C — Constraints spesifik?
+[✅] O — Output format jelas?
+```
