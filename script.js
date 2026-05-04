@@ -64,11 +64,43 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   const run = () => {
     if (typeof gsap === 'undefined') return;
 
-    gsap.registerPlugin(ScrollTrigger);
+    // Custom Text Scramble Effect for Hero Eyebrow
+    const eyebrow = $('#hero-eyebrow');
+    const originalEyebrow = eyebrow.textContent;
+    const scramble = () => {
+      const chars = '!<>-_\\/[]{}—=+*^?#________';
+      let frame = 0;
+      let duration = 35; 
+      const loop = () => {
+        let output = '';
+        for (let i = 0; i < originalEyebrow.length; i++) {
+          if (originalEyebrow[i] === ' ') {
+            output += ' ';
+            continue;
+          }
+          if (frame >= duration || Math.random() < frame / duration) {
+            output += originalEyebrow[i];
+          } else {
+            output += chars[Math.floor(Math.random() * chars.length)];
+          }
+        }
+        eyebrow.textContent = output;
+        if (frame < duration) {
+          frame++;
+          requestAnimationFrame(loop);
+        } else {
+          eyebrow.textContent = originalEyebrow;
+        }
+      };
+      loop();
+    };
+
+    // Start scramble slightly after page load
+    setTimeout(scramble, 300);
 
     const tl = gsap.timeline({ defaults: { ease: 'elastic.out(1, 0.6)', duration: 1.5 } });
 
-    tl.from('#hero-eyebrow', { opacity: 0, y: 30, duration: 0.8 })
+    tl.from(eyebrow, { opacity: 0, y: 30, duration: 0.8 })
       .from('.hero-line', { opacity: 0, y: 40, stagger: 0.15 }, '-=0.7')
       .from('#hero-sub', { opacity: 0, y: 20, duration: 1.2 }, '-=1')
       .from('#hero-cta', { opacity: 0, scale: 0.95, duration: 1 }, '-=1');
@@ -216,23 +248,32 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   });
 })();
 
-/* ── 9. Elastic squish feedback (CSS :active is enough,
-        but we add a JS class for extra fidelity) ────────── */
-(function initSquish() {
+/* ── 9. Magnetic & Squish buttons ────────────────────────── */
+(function initMagneticButtons() {
   $$('.squish').forEach((el) => {
+    // Magnetic pull
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const h = rect.width / 2;
+      const v = rect.height / 2;
+      const x = e.clientX - rect.left - h;
+      const y = e.clientY - rect.top - v;
+      // Pull strength factor (0.25)
+      el.style.transform = `translate(${x * 0.25}px, ${y * 0.3}px) scale(1.05)`;
+    });
+
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = '';
+      el.style.transition = 'transform 400ms var(--ease-spring)';
+      setTimeout(() => { el.style.transition = ''; }, 400);
+    });
+
+    // Squish on click
     el.addEventListener('pointerdown', () => {
       el.style.transform = 'scale(0.92)';
       el.style.transition = 'transform 120ms cubic-bezier(0.34,1.56,0.64,1)';
     });
-    el.addEventListener('pointerup pointercancel', () => {
-      el.style.transform = '';
-      // Let CSS spring back
-    });
-    el.addEventListener('pointerup', () => {
-      el.style.transform = '';
-    });
-    el.addEventListener('pointercancel', () => {
-      el.style.transform = '';
-    });
+    el.addEventListener('pointerup', () => el.style.transform = '');
+    el.addEventListener('pointercancel', () => el.style.transform = '');
   });
 })();
