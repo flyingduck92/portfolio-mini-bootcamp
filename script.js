@@ -9,14 +9,14 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
 /* ── 1. Theme toggle ─────────────────────────────────────── */
 (function initTheme() {
-  const root   = document.documentElement;
-  const btn    = $('#theme-toggle');
-  const icon   = btn.querySelector('.theme-icon');
+  const root = document.documentElement;
+  const btn = $('#theme-toggle');
+  const icon = btn.querySelector('.theme-icon');
   const stored = localStorage.getItem('theme');
 
   const applyTheme = (theme) => {
     root.dataset.theme = theme;
-    icon.textContent   = theme === 'dark' ? '☀️' : '🌙';
+    icon.textContent = theme === 'dark' ? '☀️' : '🌙';
     localStorage.setItem('theme', theme);
   };
 
@@ -34,8 +34,8 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
 /* ── 2. Floating pill nav — scroll behaviour ─────────────── */
 (function initNav() {
-  const nav    = $('#pill-nav');
-  const links  = $$('.nav-link');
+  const nav = $('#pill-nav');
+  const links = $$('.nav-link');
   const sections = $$('section[id]');
 
   // Compact on scroll
@@ -44,6 +44,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   }, { passive: true });
 
   // Active link on scroll (IntersectionObserver)
+  // target all named sections including new featured + stack
   const io = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -76,10 +77,10 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
     const tl = gsap.timeline({ defaults: { ease: 'back.out(1.4)', duration: 0.75 } });
 
     tl.to('#hero-eyebrow', { opacity: 1, y: 0, duration: 0.5 })
-      .to('#hero-line-1',  { opacity: 1, y: 0 },            '-=0.35')
-      .to('#hero-line-2',  { opacity: 1, y: 0 },            '-=0.55')
-      .to('#hero-sub',     { opacity: 1, duration: 0.6 },   '-=0.4')
-      .to('#hero-cta',     { opacity: 1, duration: 0.5 },   '-=0.3');
+      .to('#hero-line-1', { opacity: 1, y: 0 }, '-=0.35')
+      .to('#hero-line-2', { opacity: 1, y: 0 }, '-=0.55')
+      .to('#hero-sub', { opacity: 1, duration: 0.6 }, '-=0.4')
+      .to('#hero-cta', { opacity: 1, duration: 0.5 }, '-=0.3');
 
     // Parallax blobs on scroll
     gsap.to('.blob-1', {
@@ -105,8 +106,8 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   $$('.spotlight-card').forEach((card) => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width)  * 100;
-      const y = ((e.clientY - rect.top)  / rect.height) * 100;
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
       card.style.setProperty('--cx', `${x}%`);
       card.style.setProperty('--cy', `${y}%`);
     });
@@ -116,10 +117,14 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 /* ── 5. Crossfade Carousel ───────────────────────────────── */
 (function initCarousel() {
   const slides = $$('.carousel-slide');
-  const dots   = $$('.dot');
-  const prev   = $('#carousel-prev');
-  const next   = $('#carousel-next');
-  let current  = 0;
+  const dots = $$('.dot');
+  const prev = $('#carousel-prev');
+  const next = $('#carousel-next');
+
+  // Bail if carousel was removed from the page
+  if (!prev || !next || slides.length === 0) return;
+
+  let current = 0;
   let timer;
 
   const goTo = (idx) => {
@@ -150,7 +155,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   // Keyboard support
   const carousel = $('#vault-carousel');
   carousel.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft')  { goTo(current - 1); startAuto(); }
+    if (e.key === 'ArrowLeft') { goTo(current - 1); startAuto(); }
     if (e.key === 'ArrowRight') { goTo(current + 1); startAuto(); }
   });
 
@@ -172,8 +177,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   const items = $$('.accordion-item');
 
   items.forEach((item) => {
-    const btn   = item.querySelector('.accordion-trigger');
-    const panel = item.querySelector('.accordion-panel');
+    const btn = item.querySelector('.accordion-trigger');
 
     btn.addEventListener('click', () => {
       const isOpen = item.classList.contains('open');
@@ -182,21 +186,14 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
       items.forEach((i) => {
         i.classList.remove('open');
         i.querySelector('.accordion-trigger').setAttribute('aria-expanded', 'false');
-        const p = i.querySelector('.accordion-panel');
-        p.setAttribute('hidden', '');
-        p.style.visibility = 'hidden';
       });
 
       if (!isOpen) {
-        // Open clicked
         item.classList.add('open');
         btn.setAttribute('aria-expanded', 'true');
-        panel.removeAttribute('hidden');
-        panel.style.visibility = 'visible';
 
-        // Trigger shimmer
+        // Shimmer sweep
         item.classList.remove('shimmer-run');
-        // Force reflow to restart animation
         void item.offsetWidth;
         item.classList.add('shimmer-run');
         setTimeout(() => item.classList.remove('shimmer-run'), 700);
@@ -205,9 +202,10 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   });
 })();
 
+
 /* ── 7. Scroll-reveal for sections ──────────────────────── */
 (function initReveal() {
-  const targets = $$('.vault-card, .section-header, .accordion-item, .contact-inner > *');
+  const targets = $$('.vault-card, .featured-card, .stack-group, .section-header, .accordion-item, .contact-inner > *');
   targets.forEach((el) => el.classList.add('reveal'));
 
   const io = new IntersectionObserver((entries) => {
@@ -227,15 +225,15 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
 /* ── 8. Contact form ─────────────────────────────────────── */
 (function initContactForm() {
-  const form     = $('#contact-form');
+  const form = $('#contact-form');
   const feedback = $('#form-feedback');
 
   if (!form) return;
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const name    = $('#form-name').value.trim();
-    const email   = $('#form-email').value.trim();
+    const name = $('#form-name').value.trim();
+    const email = $('#form-email').value.trim();
     const message = $('#form-message').value.trim();
 
     if (!name || !email || !message) {

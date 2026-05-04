@@ -8,7 +8,7 @@
     - https://selftaughttxg.com/2020/12-20/the_post-javascriptmas_2020_post/
 - Update content from my blog/personal notes, in /notes folder 
 - Add "Featured" section that Sekti Wicaksono mentioned on other resources, update with my current projects which currently focused in web development but also interested in AI. Make sure to make mobile-first approach. 
-- Add section for Tech stack: TypeScript, JavaScript, HTML, CSS, Git, ReactJS, NextJS, Tanstack, Drizzle, Sequelize, MongoDB, Postgres, Shadcn/UI, Tailwind CSS, and GSAP. Make sure to make mobile-first approach. 
+- Add section for Tech stack: TypeScript, JavaScript, HTML, CSS, Git, ReactJS, NextJS, Tanstack, NodeJs, Express, Drizzle, Sequelize, MongoDB, Postgres, Shadcn/UI, Tailwind CSS, and GSAP. Make sure to make mobile-first approach. 
 - **Constraint:** Vanilla JS only (no frameworks), Tailwind CSS for styling, GSAP for the "wow" factor.
 - **Objective:** Convert visitors into leads/collaborators via high-engagement UI components. Update vault based on Pinned section on https://github.com/flyingduck92/ (not all of them! only Sekti_Wicaksono-FinalProject, shadcn-dashboard, tailwind-html, and multistaged-signup including links to repositories)
 
