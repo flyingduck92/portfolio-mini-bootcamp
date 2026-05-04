@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — Soft Tech Vibes</title>
+  <meta name="description" content="A creative developer portfolio blending high-end engineering with approachable, rounded Soft Tech aesthetics." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ░░ NAV ░░ -->
+  <nav id="pill-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo" aria-label="Home">✦</a>
+      <ul class="nav-links" role="list">
+        <li><a href="#hero"   class="nav-link" id="nav-home">Home</a></li>
+        <li><a href="#vault"  class="nav-link" id="nav-vault">Vault</a></li>
+        <li><a href="#process" class="nav-link" id="nav-process">Process</a></li>
+        <li><a href="#contact" class="nav-link" id="nav-contact">Contact</a></li>
+      </ul>
+      <button id="theme-toggle" class="theme-btn" aria-label="Toggle dark mode">
+        <span class="theme-icon" aria-hidden="true">🌙</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ░░ HERO ░░ -->
+  <section id="hero" class="hero">
+    <div class="hero-bg-blobs" aria-hidden="true">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow" id="hero-eyebrow">✦ Creative Developer</p>
+      <h1 class="hero-title" id="hero-title">
+        <span class="hero-line" id="hero-line-1">Building things</span>
+        <span class="hero-line accent" id="hero-line-2">that feel alive.</span>
+      </h1>
+      <p class="hero-sub" id="hero-sub">
+        Soft aesthetics. Sharp logic. I turn ideas into interactive experiences
+        that delight and perform.
+      </p>
+      <div class="hero-cta" id="hero-cta">
+        <a href="#vault" class="btn btn-primary squish" id="cta-vault">See my Vault</a>
+        <a href="#contact" class="btn btn-ghost squish" id="cta-contact">Let's talk</a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span class="scroll-dot"></span>
+    </div>
+  </section>
+
+  <!-- ░░ VAULT ░░ -->
+  <section id="vault" class="vault section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">The Vault</h2>
+        <p class="section-sub">A curated selection of projects that live at the intersection of craft and code.</p>
+      </div>
+
+      <!-- Spotlight cards grid -->
+      <div class="vault-grid" id="vault-grid">
+
+        <article class="vault-card spotlight-card" id="card-1" tabindex="0">
+          <div class="card-spotlight" aria-hidden="true"></div>
+          <div class="card-badge">Web App</div>
+          <div class="card-icon" aria-hidden="true">🌿</div>
+          <h3 class="card-title">EcoTrack</h3>
+          <p class="card-desc">A personal carbon-footprint tracker with real-time data visualisation and gamified habits.</p>
+          <div class="card-tags">
+            <span class="tag">React</span><span class="tag">D3.js</span><span class="tag">Firebase</span>
+          </div>
+          <a href="#" class="card-link squish" id="link-card-1">View project →</a>
+        </article>
+
+        <article class="vault-card spotlight-card" id="card-2" tabindex="0">
+          <div class="card-spotlight" aria-hidden="true"></div>
+          <div class="card-badge">UI Kit</div>
+          <div class="card-icon" aria-hidden="true">🎨</div>
+          <h3 class="card-title">Petal UI</h3>
+          <p class="card-desc">An open-source component library built around rounded, soft aesthetics with full dark-mode support.</p>
+          <div class="card-tags">
+            <span class="tag">Design System</span><span class="tag">Storybook</span>
+          </div>
+          <a href="#" class="card-link squish" id="link-card-2">View project →</a>
+        </article>
+
+        <article class="vault-card spotlight-card" id="card-3" tabindex="0">
+          <div class="card-spotlight" aria-hidden="true"></div>
+          <div class="card-badge">AI Tool</div>
+          <div class="card-icon" aria-hidden="true">🤖</div>
+          <h3 class="card-title">PromptPilot</h3>
+          <p class="card-desc">A browser extension that auto-refines LLM prompts for better, faster results — no switching tabs.</p>
+          <div class="card-tags">
+            <span class="tag">Extension</span><span class="tag">OpenAI</span><span class="tag">TypeScript</span>
+          </div>
+          <a href="#" class="card-link squish" id="link-card-3">View project →</a>
+        </article>
+
+        <article class="vault-card spotlight-card" id="card-4" tabindex="0">
+          <div class="card-spotlight" aria-hidden="true"></div>
+          <div class="card-badge">Mobile</div>
+          <div class="card-icon" aria-hidden="true">🎵</div>
+          <h3 class="card-title">Moodwave</h3>
+          <p class="card-desc">A mood-based music discovery app that learns your emotional patterns and curates micro-playlists.</p>
+          <div class="card-tags">
+            <span class="tag">React Native</span><span class="tag">Spotify API</span>
+          </div>
+          <a href="#" class="card-link squish" id="link-card-4">View project →</a>
+        </article>
+
+      </div>
+
+      <!-- Crossfade Carousel -->
+      <div class="carousel" id="vault-carousel" role="region" aria-label="Featured project carousel">
+        <div class="carousel-track">
+          <div class="carousel-slide active" id="slide-1" aria-hidden="false">
+            <div class="carousel-img" style="background: linear-gradient(135deg, #a8edea, #fed6e3);" aria-label="EcoTrack dashboard screenshot"></div>
+            <div class="carousel-caption">
+              <h3>EcoTrack — Dashboard</h3>
+              <p>Real-time emissions data with beautiful D3.js charts.</p>
+            </div>
+          </div>
+          <div class="carousel-slide" id="slide-2" aria-hidden="true">
+            <div class="carousel-img" style="background: linear-gradient(135deg, #d4e4bc, #a2c4c9);" aria-label="Petal UI component showcase"></div>
+            <div class="carousel-caption">
+              <h3>Petal UI — Components</h3>
+              <p>50+ accessible components with a soft, rounded feel.</p>
+            </div>
+          </div>
+          <div class="carousel-slide" id="slide-3" aria-hidden="true">
+            <div class="carousel-img" style="background: linear-gradient(135deg, #c3b1e1, #f8d7e3);" aria-label="PromptPilot extension UI"></div>
+            <div class="carousel-caption">
+              <h3>PromptPilot — Extension</h3>
+              <p>Contextual prompt refinement right inside your browser.</p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-controls" role="group" aria-label="Carousel controls">
+          <button class="carousel-btn" id="carousel-prev" aria-label="Previous slide">‹</button>
+          <div class="carousel-dots" id="carousel-dots" aria-label="Slide indicators" role="tablist">
+            <button class="dot active" id="dot-0" aria-label="Slide 1" role="tab" aria-selected="true"></button>
+            <button class="dot" id="dot-1" aria-label="Slide 2" role="tab" aria-selected="false"></button>
+            <button class="dot" id="dot-2" aria-label="Slide 3" role="tab" aria-selected="false"></button>
+          </div>
+          <button class="carousel-btn" id="carousel-next" aria-label="Next slide">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ PROCESS / SHIMMER ACCORDION ░░ -->
+  <section id="process" class="process section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">How I Work</h2>
+        <p class="section-sub">My process is structured, collaborative, and always a little bit playful.</p>
+      </div>
+
+      <div class="accordion" id="process-accordion" role="list">
+
+        <div class="accordion-item shimmer-item" id="acc-1" role="listitem">
+          <button class="accordion-trigger squish" id="acc-btn-1" aria-expanded="false" aria-controls="acc-panel-1">
+            <span class="acc-num" aria-hidden="true">01</span>
+            <span class="acc-title">Discover &amp; Define</span>
+            <span class="acc-chevron" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel" id="acc-panel-1" role="region" aria-labelledby="acc-btn-1" hidden>
+            <div class="accordion-body">
+              <p>Every great product starts with honest questions. I map user needs, business goals, and technical constraints to build a shared vision before a single pixel is designed or a line of code is written.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item shimmer-item" id="acc-2" role="listitem">
+          <button class="accordion-trigger squish" id="acc-btn-2" aria-expanded="false" aria-controls="acc-panel-2">
+            <span class="acc-num" aria-hidden="true">02</span>
+            <span class="acc-title">Design &amp; Prototype</span>
+            <span class="acc-chevron" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel" id="acc-panel-2" role="region" aria-labelledby="acc-btn-2" hidden>
+            <div class="accordion-body">
+              <p>From rough wireframes to high-fidelity interactive prototypes in Figma, I ensure every interaction is intentional. Motion and micro-animation are baked in from the start, not bolted on.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item shimmer-item" id="acc-3" role="listitem">
+          <button class="accordion-trigger squish" id="acc-btn-3" aria-expanded="false" aria-controls="acc-panel-3">
+            <span class="acc-num" aria-hidden="true">03</span>
+            <span class="acc-title">Build &amp; Iterate</span>
+            <span class="acc-chevron" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel" id="acc-panel-3" role="region" aria-labelledby="acc-btn-3" hidden>
+            <div class="accordion-body">
+              <p>I ship in short sprints, gathering real feedback early. Code is clean, accessible, and tested. Performance budgets are respected. I never let "working" be the enemy of "delightful."</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item shimmer-item" id="acc-4" role="listitem">
+          <button class="accordion-trigger squish" id="acc-btn-4" aria-expanded="false" aria-controls="acc-panel-4">
+            <span class="acc-num" aria-hidden="true">04</span>
+            <span class="acc-title">Launch &amp; Refine</span>
+            <span class="acc-chevron" aria-hidden="true">+</span>
+          </button>
+          <div class="accordion-panel" id="acc-panel-4" role="region" aria-labelledby="acc-btn-4" hidden>
+            <div class="accordion-body">
+              <p>Launch is the beginning, not the end. I track analytics, run usability sessions, and keep a tight feedback loop to ensure the product keeps improving long after go-live.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ CONTACT ░░ -->
+  <section id="contact" class="contact section">
+    <div class="container contact-inner">
+      <div class="contact-text">
+        <h2 class="section-title">Let's build something<br /><span class="accent">wonderful.</span></h2>
+        <p>Open to freelance projects, full-time roles, and interesting collaborations. Drop me a line and let's see what we can make.</p>
+        <div class="contact-links">
+          <a href="mailto:hello@example.com" class="contact-chip squish" id="contact-email">📧 hello@example.com</a>
+          <a href="https://github.com/" target="_blank" rel="noopener" class="contact-chip squish" id="contact-github">🐙 GitHub</a>
+          <a href="https://linkedin.com/" target="_blank" rel="noopener" class="contact-chip squish" id="contact-linkedin">💼 LinkedIn</a>
+        </div>
+      </div>
+      <form class="contact-form" id="contact-form" novalidate aria-label="Contact form">
+        <div class="form-group">
+          <label for="form-name">Name</label>
+          <input type="text" id="form-name" name="name" placeholder="Your name" autocomplete="name" required />
+        </div>
+        <div class="form-group">
+          <label for="form-email">Email</label>
+          <input type="email" id="form-email" name="email" placeholder="your@email.com" autocomplete="email" required />
+        </div>
+        <div class="form-group">
+          <label for="form-message">Message</label>
+          <textarea id="form-message" name="message" rows="4" placeholder="Tell me about your project…" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary squish" id="form-submit">Send message ✦</button>
+        <p class="form-feedback" id="form-feedback" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ░░ FOOTER ░░ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-inner">
+      <span>© 2025 Portfolio. Built with care &amp; curiosity.</span>
+      <a href="#hero" class="footer-back squish" id="footer-back" aria-label="Back to top">↑ Top</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
