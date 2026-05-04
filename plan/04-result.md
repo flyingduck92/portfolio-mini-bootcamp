@@ -10,19 +10,19 @@
 
 ## Screenshot: Desktop
 
-![desktop view](./screenshots/desktop_compressed.png)
+![desktop view](./screenshot/desktop_compressed.png)
 
 ---
 
 ## Screenshot: Tablet
 
-![tablet view](./screenshots/tablet_iPadMini_compressed.png)
+![tablet view](./screenshot/tablet_iPadMini_compressed.png)
 
 ---
 
 ## Screenshot: Mobile
 
-![mobile view](./screenshots/mobile_iPhoneSE_compressed.png)
+![mobile view](./screenshot/mobile_iPhoneSE_compressed.png)
 
 ---
 
