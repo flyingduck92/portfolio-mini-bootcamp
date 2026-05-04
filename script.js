@@ -49,59 +49,41 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const id = entry.target.id;
-        links.forEach((l) => {
-          l.classList.toggle('active', l.getAttribute('href') === `#${id}`);
+        links.forEach((link) => {
+          link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
         });
       }
     });
-  }, { rootMargin: '-40% 0px -50% 0px' });
+  }, { threshold: 0.3 });
 
   sections.forEach((s) => io.observe(s));
 })();
 
 /* ── 3. GSAP Hero entrance animation ─────────────────────── */
 (function initHeroAnimation() {
-  // Wait for GSAP to load (it's deferred)
   const run = () => {
-    if (typeof gsap === 'undefined') {
-      // Fallback: show elements without animation
-      $$('#hero-eyebrow, #hero-line-1, #hero-line-2, #hero-sub, #hero-cta').forEach((el) => {
-        el.style.opacity = '1';
-        el.style.transform = 'none';
-      });
-      return;
-    }
+    if (typeof gsap === 'undefined') return;
 
     gsap.registerPlugin(ScrollTrigger);
 
-    const tl = gsap.timeline({ defaults: { ease: 'back.out(1.4)', duration: 0.75 } });
+    const tl = gsap.timeline({ defaults: { ease: 'elastic.out(1, 0.6)', duration: 1.5 } });
 
-    tl.to('#hero-eyebrow', { opacity: 1, y: 0, duration: 0.5 })
-      .to('#hero-line-1', { opacity: 1, y: 0 }, '-=0.35')
-      .to('#hero-line-2', { opacity: 1, y: 0 }, '-=0.55')
-      .to('#hero-sub', { opacity: 1, duration: 0.6 }, '-=0.4')
-      .to('#hero-cta', { opacity: 1, duration: 0.5 }, '-=0.3');
+    tl.from('#hero-eyebrow', { opacity: 0, y: 30, duration: 0.8 })
+      .from('.hero-line', { opacity: 0, y: 40, stagger: 0.15 }, '-=0.7')
+      .from('#hero-sub', { opacity: 0, y: 20, duration: 1.2 }, '-=1')
+      .from('#hero-cta', { opacity: 0, scale: 0.95, duration: 1 }, '-=1');
 
-    // Parallax blobs on scroll
-    gsap.to('.blob-1', {
-      y: -80,
-      scrollTrigger: { trigger: '.hero', scrub: 1.5 },
-    });
-    gsap.to('.blob-2', {
-      y: -50,
-      scrollTrigger: { trigger: '.hero', scrub: 2 },
-    });
+    // Parallax blobs
+    gsap.to('.blob-1', { y: -120, scrollTrigger: { trigger: '.hero', scrub: 1 } });
+    gsap.to('.blob-2', { y: -80, scrollTrigger: { trigger: '.hero', scrub: 1.5 } });
+    gsap.to('.blob-3', { y: -40, scrollTrigger: { trigger: '.hero', scrub: 2 } });
   };
 
-  // GSAP is deferred, so wait for window load
-  if (document.readyState === 'complete') {
-    run();
-  } else {
-    window.addEventListener('load', run);
-  }
+  if (document.readyState === 'complete') run();
+  else window.addEventListener('load', run);
 })();
 
-/* ── 4. Spotlight hover effect on Vault cards ────────────── */
+/* ── 4. Spotlight hover effect on cards ──────────────────── */
 (function initSpotlight() {
   $$('.spotlight-card').forEach((card) => {
     card.addEventListener('mousemove', (e) => {
@@ -114,63 +96,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   });
 })();
 
-/* ── 5. Crossfade Carousel ───────────────────────────────── */
-(function initCarousel() {
-  const slides = $$('.carousel-slide');
-  const dots = $$('.dot');
-  const prev = $('#carousel-prev');
-  const next = $('#carousel-next');
 
-  // Bail if carousel was removed from the page
-  if (!prev || !next || slides.length === 0) return;
-
-  let current = 0;
-  let timer;
-
-  const goTo = (idx) => {
-    slides[current].classList.remove('active');
-    slides[current].setAttribute('aria-hidden', 'true');
-    dots[current].classList.remove('active');
-    dots[current].setAttribute('aria-selected', 'false');
-
-    current = (idx + slides.length) % slides.length;
-
-    slides[current].classList.add('active');
-    slides[current].setAttribute('aria-hidden', 'false');
-    dots[current].classList.add('active');
-    dots[current].setAttribute('aria-selected', 'true');
-  };
-
-  const startAuto = () => {
-    clearInterval(timer);
-    timer = setInterval(() => goTo(current + 1), 4500);
-  };
-
-  prev.addEventListener('click', () => { goTo(current - 1); startAuto(); });
-  next.addEventListener('click', () => { goTo(current + 1); startAuto(); });
-  dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => { goTo(i); startAuto(); });
-  });
-
-  // Keyboard support
-  const carousel = $('#vault-carousel');
-  carousel.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') { goTo(current - 1); startAuto(); }
-    if (e.key === 'ArrowRight') { goTo(current + 1); startAuto(); }
-  });
-
-  // Touch / swipe support
-  let touchStartX = 0;
-  carousel.addEventListener('touchstart', (e) => {
-    touchStartX = e.touches[0].clientX;
-  }, { passive: true });
-  carousel.addEventListener('touchend', (e) => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 40) { goTo(dx < 0 ? current + 1 : current - 1); startAuto(); }
-  }, { passive: true });
-
-  startAuto();
-})();
 
 /* ── 6. Shimmer Accordion ────────────────────────────────── */
 (function initAccordion() {
@@ -200,18 +126,26 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
       }
     });
   });
+
+  // Close accordion if clicked outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.accordion-item')) {
+      items.forEach((i) => {
+        i.classList.remove('open');
+        i.querySelector('.accordion-trigger').setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
 })();
 
-
-/* ── 7. Scroll-reveal for sections ──────────────────────── */
+/* ── 7. Scroll-reveal (Intersection Observer) ────────────── */
 (function initReveal() {
   const targets = $$('.vault-card, .featured-card, .stack-group, .section-header, .accordion-item, .contact-inner > *');
   targets.forEach((el) => el.classList.add('reveal'));
 
   const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        // Stagger siblings
         const siblings = [...entry.target.parentElement.querySelectorAll('.reveal')];
         const delay = siblings.indexOf(entry.target) * 80;
         setTimeout(() => entry.target.classList.add('visible'), delay);
@@ -222,6 +156,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
   targets.forEach((el) => io.observe(el));
 })();
+
 
 /* ── 8. Contact form ─────────────────────────────────────── */
 (function initContactForm() {
@@ -245,18 +180,39 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
       return;
     }
 
-    // Simulate async send
     const btn = $('#form-submit');
+    const originalText = btn.textContent;
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
-    setTimeout(() => {
-      form.reset();
-      feedback.textContent = '✦ Message sent! I\'ll be in touch soon.';
-      btn.textContent = 'Send message ✦';
-      btn.disabled = false;
-      setTimeout(() => (feedback.textContent = ''), 5000);
-    }, 1200);
+    // Send email directly via FormSubmit.co
+    fetch('https://formsubmit.co/ajax/sektiwicaksono92@gmail.com', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        _subject: `New contact from ${name}`,
+        name: name,
+        email: email,
+        message: message
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        form.reset();
+        feedback.textContent = '✦ Message sent directly to my inbox! I\'ll be in touch.';
+        btn.textContent = originalText;
+        btn.disabled = false;
+        setTimeout(() => (feedback.textContent = ''), 6000);
+      })
+      .catch(error => {
+        console.error('Error sending email:', error);
+        feedback.textContent = '⚠️ Oops, something went wrong. Please try again later.';
+        btn.textContent = originalText;
+        btn.disabled = false;
+      });
   });
 })();
 
