@@ -1,4 +1,4 @@
-# Step-by-Step Execution Plan
+# Step-by-Step Execution Plan - Sekti Wicaksono Portfolio
 
 ### Phase 1: Foundation (HTML/Tailwind)
 1. Setup basic HTML5 boilerplate.
@@ -19,3 +19,33 @@
 ### Phase 4: Dark Mode & Refinement
 1. Implement `localStorage` theme switcher.
 2. Ensure all soft shadows transition to glowing accents in dark mode.
+
+
+---
+
+### RTCC-O Check
+- R: ✅
+- T: ✅
+- C: ✅
+- C: ✅
+- O: ✅
+
+## Review
+- [✅] Sesuai constraints?
+- [✅] Format sesuai?
+- [✅] Bisa dipahami?
+- Changes: Perubahan model dari Claude Sonnet ke Gemini 2.0 Flash, tidak memakan token terlalu banyak. Namun, perlu lebih banyak revisi pada detailing, serta perlu intruksi tambahan agar memastikan perubahan yang baru tidak membuat style dan functionalitas sebelumnya error/broken.
+
+#### Contoh prompt:
+read & understand 03-execution.md, then implement it without breaking the current style and functionality. The implementation should be enhanced the style and functionality not broke them
+
+---
+
+## Common Mistakes
+
+| Mistake | How to Avoid |
+|---------|--------------|
+| Prompt terlalu panjang | Pecah jadi step kecil |
+| Skip review | Baca setiap baris output |
+| Copy-paste tanpa paham | Tanya ke AI jika bingung |
+| Lanjut tanpa fix | Fix sebelum next step |
