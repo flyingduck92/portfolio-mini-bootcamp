@@ -7,6 +7,12 @@
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
+// Prevent browser from automatically restoring scroll position on refresh
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
 /* ── 1. Theme toggle ─────────────────────────────────────── */
 (function initTheme() {
   const root = document.documentElement;

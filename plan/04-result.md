@@ -7,7 +7,3 @@
 
 ## Reflection
 The "Cute-alism" theme successfully bridges the gap between "Corporate" and "Creative." The spotlight hover effect provides a premium feel that contrasts nicely with the rounded, friendly UI elements.
-
-## Future Improvements
-- Add a "Playground" section for experimental GSAP sketches.
-- Integrate a headless CMS for easier "Vault" updates.
