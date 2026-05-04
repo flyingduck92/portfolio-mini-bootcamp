@@ -2,7 +2,7 @@
 
 - **Role:** Lead Frontend Developer / UI Designer.
 - **Task:** Build a high-performance, responsive portfolio that demonstrates technical mastery through GSAP animations while maintaining a "Cute-alist" brand.
-- **Context:** Personal branding for a developer who values clean code and delightful user experiences.
+- **Context:** Personal branding for a fullstack developer who values smooth animations and delightful user experiences. Tech stack: TypeScript, JavaScript, HTML, CSS, Git, ReactJS, NextJS, Tanstack, Drizzle, Sequelize, MongoDB, Postgres, Shadcn/UI, Tailwind CSS. Make sure to make mobile-first approach. 
 - **Constraint:** Vanilla JS only (no frameworks), Tailwind CSS for styling, GSAP for the "wow" factor.
 - **Objective:** Convert visitors into leads/collaborators via high-engagement UI components.
 
