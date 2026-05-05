@@ -7,6 +7,9 @@
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
+// Update footer year dynamically
+document.getElementById("year").innerHTML = new Date().getFullYear();
+
 // Prevent browser from automatically restoring scroll position on refresh
 if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';
@@ -76,7 +79,7 @@ window.scrollTo(0, 0);
     const scramble = () => {
       const chars = '!<>-_\\/[]{}—=+*^?#________';
       let frame = 0;
-      let duration = 35; 
+      let duration = 35;
       const loop = () => {
         let output = '';
         for (let i = 0; i < originalEyebrow.length; i++) {
